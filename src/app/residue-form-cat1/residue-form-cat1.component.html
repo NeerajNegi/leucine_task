@@ -1,0 +1,24 @@
+<div class="form-group" [formGroup]="residueForm">
+  <div class="form-row">
+    <div class="col required">
+      <label for="lod">LOD (in ppm)</label>
+      <input type="text" class="form-control" name="lod" 
+        formControlName="lod">
+    </div>
+    <div class="col required">
+      <label for="loq">Loq (in ppm)</label>
+      <input type="text" class="form-control" name="loq" 
+        formControlName="loq">
+    </div>
+  </div>
+  <div class="form-row center-form">
+    <app-swab-form-cat1 
+      *ngIf="residueForm.get('swab')"
+      [swabForm]="residueForm.get('swab')"></app-swab-form-cat1>
+  </div>
+  <div class="form-row center-form">
+    <app-rinse-form-cat1 
+      *ngIf="residueForm.get('rinse')"
+      [rinseForm]="residueForm.get('rinse')"></app-rinse-form-cat1>
+  </div>
+</div>

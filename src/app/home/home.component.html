@@ -1,0 +1,36 @@
+<div class="container">
+  <form [formGroup]="methodForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group required">
+      <label for="analytical_method_id">Analytical Method ID</label>
+      <input type="text" class="form-control" name="analytical_method_id" 
+        formControlName="analyticalMethodId" placeholder="ABC/XY/001">
+    </div>
+
+    <div class="form-group required">
+      <label for="residue_type">Target Residue Type</label>
+      <select class="form-control" formControlName="targetResidueType" name="color">
+        <option *ngFor="let type of residueTypes" [value]="type.value">{{ type.name }}</option>
+      </select>
+    </div>
+
+    <app-residue-form-cat1
+      *ngIf="methodForm.get('residueForm') && residueFormCategory === 1"
+      [residueForm]="methodForm.get('residueForm')">
+    </app-residue-form-cat1>
+
+    <app-residue-form-cat2 
+      *ngIf="methodForm.get('residueForm') && residueFormCategory === 2"
+      [residueForm]="methodForm.get('residueForm')">
+    </app-residue-form-cat2>
+
+    <div class="form-group required">
+      <label for="reason">Reason</label>
+      <input type="text" class="form-control" name="reason" 
+        formControlName="reason" placeholder="">
+    </div>
+
+    <button type="submit">Submit</button>
+
+  </form>
+</div>

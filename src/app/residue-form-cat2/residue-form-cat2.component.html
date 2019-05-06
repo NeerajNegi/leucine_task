@@ -1,0 +1,31 @@
+<div class="form-group" [formGroup]="residueForm">
+  <div class="form-row">
+    <div class="col required">
+      <label for="methodUser">Method Used</label>
+      <input type="text" class="form-control" name="methodUser" 
+        formControlName="methodUsed">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="required">
+        <label for="">Define TNTC and TFTC limits?</label>
+    </div>
+    <mat-radio-group aria-label="Select an option" formControlName="limits">
+      <mat-radio-button [value]="true">Yes</mat-radio-button>
+      <mat-radio-button [value]="false">No</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="form-row center-form">
+    <app-swab-form-cat2 
+      *ngIf="residueForm.get('swab')"
+      [swabForm]="residueForm.get('swab')"></app-swab-form-cat2>
+  </div>
+
+  <div class="form-row center-form">
+    <app-rinse-form-cat2 
+      *ngIf="residueForm.get('rinse')"
+      [rinseForm]="residueForm.get('rinse')"></app-rinse-form-cat2>
+  </div>
+
+</div>

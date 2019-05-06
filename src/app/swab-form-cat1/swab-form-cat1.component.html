@@ -1,0 +1,60 @@
+<div class="form-group" [formGroup]="swabForm">
+  <div class="form-row">
+    <div class="col required">
+        <label for="methodUsed">Method Used</label>
+        <input type="text" class="form-control" name="methodUsed" 
+          formControlName="methodUsed">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col required">
+      <label for="solventName">Solvent Name</label>
+      <input type="text" class="form-control" name="solventName" 
+        formControlName="solventName">
+    </div>
+    <div class="col required">
+      <label for="solventQuantity">Solvent Quantity (ml)</label>
+      <input type="text" class="form-control" name="solventQuantity" 
+        formControlName="solventQuantity">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col required">
+      <label for="defaultRecovery">Default Recovery (%)</label>
+      <input type="text" class="form-control" name="defaultRecovery" 
+        formControlName="defaultRecovery">
+    </div>
+  </div>
+
+  <div class="form-group center-form mocs">
+
+    <div class="form-row">
+      <div class="col required">
+        <label>Select MOC</label>
+      </div>
+      <div class="col required">
+        <label>Recovery (%)</label>
+      </div>
+    </div>
+
+    <div class="form-row " formArrayName="mocs"
+      *ngFor="let m of swabForm.get('mocs')['controls']; let i = index;">
+      <div class="col" [formGroupName]="i">
+          <select class="form-control" formControlName="mocName" name="color">
+            <option *ngFor="let type of mocTypes" [value]="type.value">{{ type.name }}</option>
+          </select>
+      </div>
+      <div class="col" [formGroupName]="i">        
+        <input type="text" class="form-control" name="recovery" 
+        formControlName="recovery">
+      </div>
+      <div class="col">
+        <button class="btn" type="button" (click)="removeMoc(index)">X</button>
+      </div>
+    </div>
+    <button class="btn" type="button" (click)="addMoc()">add another</button>
+
+  </div>
+
+</div>
+

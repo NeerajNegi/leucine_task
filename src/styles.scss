@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.required label:before {
+    content:"*";
+    color:red;
+}
+
+.center-form {
+    justify-content: center;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+mat-radio-button {
+    margin-left: 0.5rem;
+}

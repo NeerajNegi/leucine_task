@@ -1,0 +1,51 @@
+<div class="form-group" [formGroup]="swabForm">
+    <div class="form-row">
+        <div class="col">
+            <div class="required">
+                <label for="">User recovery for swab?</label>
+            </div>
+            <mat-radio-group aria-label="Select an option" formControlName="recoveryForSwab">
+              <mat-radio-button [value]="true">Yes</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col" *ngIf="swabForm.get('recoveryForSwab').value">
+          <label for="defaultRecovery">Default Recovery (%)</label>
+          <input type="text" class="form-control" name="defaultRecovery" 
+            formControlName="defaultRecovery">
+        </div>
+      </div>
+  
+    <div class="form-group center-form mocs">
+  
+      <div class="form-row">
+        <div class="col required">
+          <label>Select MOC</label>
+        </div>
+        <div class="col required">
+          <label>Recovery (%)</label>
+        </div>
+      </div>
+  
+      <div class="form-row " formArrayName="mocs"
+        *ngFor="let m of swabForm.get('mocs')['controls']; let i = index;">
+        <div class="col" [formGroupName]="i">
+            <select class="form-control" formControlName="mocName" name="color">
+              <option *ngFor="let type of mocTypes" [value]="type.value">{{ type.name }}</option>
+            </select>
+        </div>
+        <div class="col" [formGroupName]="i">        
+          <input type="text" class="form-control" name="recovery" 
+          formControlName="recovery">
+        </div>
+        <div class="col">
+          <button class="btn" type="button" (click)="removeMoc(index)">X</button>
+        </div>
+      </div>
+      <button class="btn" type="button" (click)="addMoc()">add another</button>
+  
+    </div>
+  
+  </div>
+  
+  
