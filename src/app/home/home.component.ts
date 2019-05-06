@@ -13,11 +13,12 @@ export class HomeComponent implements OnInit {
   methodForm: FormGroup;
   mocs: FormArray;
   residueFormCategory: number;
+  resultString: string = '';
 
   ngOnInit() {
     this.methodForm = this.fb.group({
       analyticalMethodId: new FormControl(null,{ validators: Validators.required, updateOn: 'blur' } ),
-      targetResidueType: new FormControl(null,{ validators: Validators.required, updateOn: 'blur' } ),
+      targetResidueType: new FormControl(null,{ validators: Validators.required } ),
       reason: new FormControl(null,{ validators: Validators.required, updateOn: 'blur' } ),
     })
 
@@ -56,34 +57,10 @@ export class HomeComponent implements OnInit {
     return new FormGroup({
       methodUsed: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
       limits: new FormControl(false, { validators: Validators.required}),
+      tntcLimit: new FormControl(null, { updateOn: 'blur'}),
+      tftcLimit: new FormControl(null, { updateOn: 'blur'}),
     })
   }
-
-  // createSwabForm(): FormGroup {
-  //   return this.fb.group({
-  //     methodUsed: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-  //     solventName: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-  //     solventQuantity: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-  //     defaultRecovery: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-  //     // mocs: this.fb.array([ this.createMoc() ])
-  //   })
-  // }
-
-  // createRinseForm(): FormGroup {
-  //   return this.fb.group({
-  //     methodUsed: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-  //     defaultRecovery: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-  //     // mocs: this.fb.array([ this.createMoc() ])
-  //   })
-  // }
-
-  // createMoc(): FormGroup {
-  //   return this.fb.group({
-  //     moc: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-  //     recovery: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-  //   })
-  // }
-
   onResidueTypeChange(): void {
     this.methodForm.get('targetResidueType').valueChanges.subscribe(val => {
       if(this.methodForm.get('targetResidueType').value) {
@@ -101,7 +78,9 @@ export class HomeComponent implements OnInit {
   onSubmit(): void {
     if(this.methodForm.valid) {
       console.log(this.methodForm.value);
+      this.resultString = JSON.stringify(this.methodForm.value, null, 2);
     } else {
+      alert('Please fill all the required fields');
       console.log(this.findInvalidControls());
     }
   }

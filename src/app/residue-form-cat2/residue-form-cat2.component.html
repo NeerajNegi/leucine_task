@@ -15,6 +15,18 @@
       <mat-radio-button [value]="false">No</mat-radio-button>
     </mat-radio-group>
   </div>
+  <div class="form-row" *ngIf="residueForm.get('limits').value">
+    <div class="col required">
+      <label for="tntcLimit">TNTC limit (in CFU)</label>
+      <input type="text" class="form-control" name="tntcLimit" 
+        formControlName="tntcLimit">
+    </div>
+    <div class="col required">
+      <label for="tftcLimit">TFTC limit (in CFU)</label>
+      <input type="text" class="form-control" name="tftcLimit" 
+        formControlName="tftcLimit">
+    </div>
+  </div>
 
   <div class="form-row center-form">
     <app-swab-form-cat2 
