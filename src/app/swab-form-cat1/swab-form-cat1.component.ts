@@ -23,7 +23,7 @@ export class SwabFormCat1Component implements OnInit {
   createMoc(): FormGroup {
     return this.fb.group({
       mocName: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-      recovery: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
+      recovery: new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0)]), updateOn: 'blur'}),
     })
   }
 

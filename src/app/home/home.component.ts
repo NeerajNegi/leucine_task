@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   createResidueForm(): FormGroup {
     
     if(this.methodForm.get('residueForm')){
-      this.methodForm.get('residueForm').reset();
+      // this.methodForm.get('residueForm').reset();
       this.methodForm.removeControl('residueForm');
     }
 
@@ -39,14 +39,14 @@ export class HomeComponent implements OnInit {
       return this.createCat1Form();
     } else {
       return this.createCat2Form();
-    }
+    } 
   }
 
   createCat1Form(): FormGroup {
     this.residueFormCategory = 1;
     return new FormGroup({
-      lod: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-      loq: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
+      lod: new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0), Validators.pattern("^[0-9]*$")]), updateOn: 'blur'}),
+      loq: new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0), Validators.pattern("^[0-9]*$")]), updateOn: 'blur'}),
       // swab: this.createSwabForm(),
       // rinse: this.createRinseForm()
     })
@@ -56,9 +56,9 @@ export class HomeComponent implements OnInit {
     this.residueFormCategory = 2;
     return new FormGroup({
       methodUsed: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-      limits: new FormControl(false, { validators: Validators.required}),
-      tntcLimit: new FormControl(null, { updateOn: 'blur'}),
-      tftcLimit: new FormControl(null, { updateOn: 'blur'}),
+      limits: new FormControl(false, { validators: Validators.compose([Validators.required, Validators.min(0)])}),
+      tntcLimit: new FormControl(null, {validators: Validators.min(0), updateOn: 'blur'}),
+      tftcLimit: new FormControl(null, {validators: Validators.min(0), updateOn: 'blur'}),
     })
   }
   onResidueTypeChange(): void {
@@ -79,8 +79,14 @@ export class HomeComponent implements OnInit {
     if(this.methodForm.valid) {
       console.log(this.methodForm.value);
       this.resultString = JSON.stringify(this.methodForm.value, null, 2);
-    } else {
-      alert('Please fill all the required fields');
+    } 
+    // else if(this.methodForm.get('residueForm').get('swab').valid || this.methodForm.get('residueForm').get('rinse').valid) {
+    //   console.log(this.methodForm.value);
+    //   this.resultString = JSON.stringify(this.methodForm.value, null, 2);
+    // } 
+    else {
+      console.log(this.methodForm.get('residueForm').get('lod').valid);
+      alert('Please fill all the required fields with correct values');
       console.log(this.findInvalidControls());
     }
   }

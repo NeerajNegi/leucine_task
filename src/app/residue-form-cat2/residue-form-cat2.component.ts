@@ -25,15 +25,15 @@ export class ResidueFormCat2Component implements OnInit {
   createSwabForm(): FormGroup {
     return this.fb.group({
       recoveryForSwab: new FormControl(true, { validators: Validators.required}),
-      defaultRecovery: new FormControl(null, { validators: Validators.required, updateOn: 'blur',}),
+      defaultRecovery: new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0)]), updateOn: 'blur',}),
     })
   }
 
   createRinseForm(): FormGroup {
     return this.fb.group({
       solventVolume: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-      recoveryForSwab: new FormControl(true, { validators: Validators.required}),
-      defaultRecovery: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
+      recoveryForSwab: new FormControl(true, { validators: Validators.compose([Validators.required, Validators.min(0)])}),
+      defaultRecovery: new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0)]), updateOn: 'blur'}),
     })
   }
 
@@ -41,8 +41,8 @@ export class ResidueFormCat2Component implements OnInit {
   onRadioChange(): void {
     this.residueForm.get('limits').valueChanges.subscribe(val => {
       if(val) {
-        this.residueForm.addControl('tntcLimit', new FormControl(null, { validators: Validators.required, updateOn: 'blur'}));
-        this.residueForm.addControl('tftcLimit', new FormControl(null, { validators: Validators.required, updateOn: 'blur'}))
+        this.residueForm.addControl('tntcLimit', new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0)]), updateOn: 'blur'}));
+        this.residueForm.addControl('tftcLimit', new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0)]), updateOn: 'blur'}))
       } else {
         this.residueForm.removeControl('tntcLimit');
         this.residueForm.removeControl('tftcLimit');

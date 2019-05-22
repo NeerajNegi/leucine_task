@@ -25,8 +25,8 @@ export class ResidueFormCat1Component implements OnInit {
     return this.fb.group({
       methodUsed: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
       solventName: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-      solventQuantity: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-      defaultRecovery: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
+      solventQuantity: new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0)]), updateOn: 'blur'}),
+      defaultRecovery: new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0)]), updateOn: 'blur'}),
       // mocs: this.fb.array([ this.createMoc() ])
     })
   }
@@ -34,7 +34,7 @@ export class ResidueFormCat1Component implements OnInit {
   createRinseForm(): FormGroup {
     return this.fb.group({
       methodUsed: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
-      defaultRecovery: new FormControl(null, { validators: Validators.required, updateOn: 'blur'}),
+      defaultRecovery: new FormControl(null, { validators: Validators.compose([Validators.required, Validators.min(0)]), updateOn: 'blur'}),
       // mocs: this.fb.array([ this.createMoc() ])
     })
   }
